@@ -1,0 +1,61 @@
+.status {
+  --status-color: var(--status-unknown);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  color: var(--text-title);
+
+  &::before {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--status-color);
+    box-shadow: 0 0 5px 1px var(--status-color);
+  }
+
+  &.online {
+    --status-color: var(--status-online);
+  }
+
+  &.offline {
+    --status-color: var(--status-offline);
+  }
+
+  &.warning {
+    --status-color: var(--status-warning);
+  }
+
+  &.unknown {
+    --status-color: var(--status-unknown);
+  }
+
+  &.busy {
+    --status-color: var(--status-busy);
+
+    &::before {
+      animation: status-pulse 1s alternate infinite;
+    }
+  }
+}
+
+@keyframes status-pulse {
+  from {
+    opacity: 0.55;
+    box-shadow: 0 0 0 0 var(--status-color);
+  }
+  to {
+    opacity: 1;
+    box-shadow: 0 0 6px 2px var(--status-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status.busy::before {
+    animation: none;
+  }
+}
